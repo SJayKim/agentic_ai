@@ -1,0 +1,434 @@
+{
+  "doc-2e4756d7dbc0c2e5bbcd7b28e8051148": {
+    "status": "processed",
+    "chunks_count": 4,
+    "chunks_list": [
+      "chunk-8de6e6c31fc329874fc387736b746d14",
+      "chunk-2447fe875b384c188ba9d3554399dc6d",
+      "chunk-532256487602de4be2e3c0e854913102",
+      "chunk-0beb624e95d0a83ff827995041e5f87c"
+    ],
+    "content_summary": "[Document: 2026년_플랜티넷_기술연구소_개발계획_20260128_0853 (2).pdf]\n\n## 문서 개요\n- 문서명: 2026년_플랜티넷_기술연구소_개발계획_20260128_0853 (2).pdf\n- 문서 유형: 개발계획\n- 작성 일자: 2026년 1월 28일\n- 핵심 주제: 플랜티넷 기술연구소의 2026년부터 2028년까지의 개발 계획 및 기술 로드맵을 제시하며, 사업부 지원 과제, AI 기술 고도화 및 신규 개발, 미래 유해환경...",
+    "content_length": 7912,
+    "created_at": "2026-03-05T05:07:06.605677+00:00",
+    "updated_at": "2026-03-05T05:09:45.333625+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_050706_3476e75a",
+    "metadata": {
+      "processing_start_time": 1772687226,
+      "processing_end_time": 1772687385
+    }
+  },
+  "doc-9cbb2025fa66646057b9da4147bf553d": {
+    "status": "processed",
+    "chunks_count": 2,
+    "chunks_list": [
+      "chunk-68766b231992936270936e6f0b183e36",
+      "chunk-0649ab1d8c10a2920ddb7d5471979705"
+    ],
+    "content_summary": "[Document: 2025_05_17_chatgpt 영수증.pdf]\n\n## 문서 개요\n- 문서명: 2025_05_17_chatgpt 영수증.pdf\n- 문서 유형: 영수증\n- 작성 일자: May 17, 2025\n- 핵심 주제: OpenAI의 ChatGPT Plus 구독 서비스에 대한 plantynet의 결제 영수증으로, 2025년 5월 17일 $22.00가 Visa 카드로 결제되었음을 명시합니다.\n\n## 핵심 엔티티\n- [OpenAI, LLC]...",
+    "content_length": 2925,
+    "created_at": "2026-03-05T05:07:06.605645+00:00",
+    "updated_at": "2026-03-05T05:08:58.447816+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_050706_3476e75a",
+    "metadata": {
+      "processing_start_time": 1772687226,
+      "processing_end_time": 1772687338
+    }
+  },
+  "doc-395453b5d01f311de3d9484b63c941ce": {
+    "status": "processed",
+    "chunks_count": 2,
+    "chunks_list": [
+      "chunk-56282f4606fc56d4130b6951eb4c498d",
+      "chunk-b02689c99575169a9478479eec80788c"
+    ],
+    "content_summary": "[Document: 카테고리 별 BLEU Score 측정 결과.pptx]\n\n## 문서 개요\n- 문서명: 카테고리 별 BLEU Score 측정 결과.pptx\n- 문서 유형: 프레젠테이션\n- 작성 일자: (알 수 없음)\n- 핵심 주제: 다양한 기계 번역 시스템(Google, Papago, Samsung, ChatGPT, DeepL, Flitto, llsollu)의 한국어-영어 및 영어-한국어 번역 성능을 카테고리별 BLEU Score로 측정하고, ...",
+    "content_length": 3477,
+    "created_at": "2026-03-05T05:07:06.605692+00:00",
+    "updated_at": "2026-03-05T05:10:25.081369+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_050706_3476e75a",
+    "metadata": {
+      "processing_start_time": 1772687338,
+      "processing_end_time": 1772687425
+    }
+  },
+  "doc-c4d0d2c2192a45faa2dc81178173898e": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-c4d0d2c2192a45faa2dc81178173898e"
+    ],
+    "content_summary": "[Document: 2025_06_17_chatgpt 영수증.pdf]\n\n## 문서 개요\n- 문서명: 2025_06_17_chatgpt 영수증.pdf\n- 문서 유형: 영수증\n- 작성 일자: June 17, 2025\n- 핵심 주제: plantynet이 OpenAI의 ChatGPT Plus Subscription 서비스에 대해 2025년 6월 17일 $22.00를 결제한 영수증.\n\n## 핵심 엔티티\n- [OpenAI, LLC] (타입: Organiz...",
+    "content_length": 2340,
+    "created_at": "2026-03-05T05:07:06.605672+00:00",
+    "updated_at": "2026-03-05T05:10:57.521721+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_050706_3476e75a",
+    "metadata": {
+      "processing_start_time": 1772687385,
+      "processing_end_time": 1772687457
+    }
+  },
+  "doc-8bd951507000a9300e01f335d2aac5c1": {
+    "status": "processed",
+    "chunks_count": 2,
+    "chunks_list": [
+      "chunk-f484700b8f584c97b2a965ce95f5d752",
+      "chunk-e3b5730698c6919a72fa8fe9e365553a"
+    ],
+    "content_summary": "[Document: 기사 OCR.docx]\n\n## 문서 개요\n- 문서명: 기사 OCR.docx\n- 문서 유형: 기사\n- 작성 일자: (알 수 없음)\n- 핵심 주제: 막스 빌이 디자인한 울름 스툴의 다기능성과 바우하우스 이념 계승에 대한 기사로, 스툴의 특징, 제작 방식, 그리고 디자이너의 철학을 설명합니다.\n\n## 핵심 엔티티\n- **Max Bill** (타입: Person): 스위스 건축가, 디자이너, 화가, 조각가, 그래픽 아티스트. 바우하...",
+    "content_length": 2147,
+    "created_at": "2026-03-05T05:07:06.605687+00:00",
+    "updated_at": "2026-03-05T05:11:42.427169+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_050706_3476e75a",
+    "metadata": {
+      "processing_start_time": 1772687425,
+      "processing_end_time": 1772687502
+    }
+  },
+  "doc-8bfb82ef2f9104c844470a7787413791": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-8bfb82ef2f9104c844470a7787413791"
+    ],
+    "content_summary": "[Document: test_doc.txt]\n\n## 문서 개요\n- 문서명: test_doc.txt\n- 문서 유형: 기술문서\n- 작성 일자: (알 수 없음)\n- 핵심 주제: 에이전트 시스템의 비밀번호, 설계 조직 및 주요 설계자에 대한 정보를 제공합니다.\n\n## 핵심 엔티티\n- [Agent System] (타입: Technology/System): 비밀번호가 'APPLE_PIE_2026'인 시스템. 'The Architects'에 의해 설계됨.\n...",
+    "content_length": 1002,
+    "created_at": "2026-03-05T05:07:06.605682+00:00",
+    "updated_at": "2026-03-05T05:11:39.781254+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_050706_3476e75a",
+    "metadata": {
+      "processing_start_time": 1772687457,
+      "processing_end_time": 1772687499
+    }
+  },
+  "doc-58b3e6c838a45a3d906d10fc138ce489": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-58b3e6c838a45a3d906d10fc138ce489"
+    ],
+    "content_summary": "[Document: test_doc.txt]\n\n## 문서 개요\n- 문서명: test_doc.txt\n- 문서 유형: 기술문서\n- 작성 일자: (알 수 없음)\n- 핵심 주제: 에이전트 시스템의 비밀 패스코드, 설계 조직, 그리고 주요 설계자에 대한 정보를 제공한다.\n\n## 핵심 엔티티\n- [Agent System] (타입: Technology): 비밀 패스코드를 가진 시스템으로, 'The Architects'에 의해 설계되었다.\n- [APPLE_P...",
+    "content_length": 1157,
+    "created_at": "2026-03-05T07:41:50.687458+00:00",
+    "updated_at": "2026-03-05T07:43:05.687098+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_074150_678c0ff5",
+    "metadata": {
+      "processing_start_time": 1772696510,
+      "processing_end_time": 1772696585
+    }
+  },
+  "doc-c018896d07bde97515508475e5dcbed6": {
+    "status": "processed",
+    "chunks_count": 3,
+    "chunks_list": [
+      "chunk-53c122a1351bb62d4818744846fb8b3b",
+      "chunk-077f1c8d65370143de742282e9519342",
+      "chunk-e4a55c2cba84b3e6fcdc01243ddae25b"
+    ],
+    "content_summary": "[Document: 안심플랫폼+AI-기획팀-v0.3(250724).pdf]\n\n## 문서 개요\n- 문서명: 안심플랫폼+AI-기획팀-v0.3(250724).pdf\n- 문서 유형: 개발계획\n- 작성 일자: 2025. 07.\n- 핵심 주제: 안심 플랫폼의 AI 기반 고도화 및 확장 전략을 제시하며, 자사 앱의 음성 인식 제어, 질문/답변, 창작형 AI 기능 도입과 함께 시니어 및 가족을 위한 다양한 신규 서비스 계획을 포함한다.\n\n## 핵심 엔티티\n-...",
+    "content_length": 4422,
+    "created_at": "2026-03-05T07:41:50.687473+00:00",
+    "updated_at": "2026-03-05T07:44:33.657033+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_074150_678c0ff5",
+    "metadata": {
+      "processing_start_time": 1772696607,
+      "processing_end_time": 1772696673
+    }
+  },
+  "doc-096f30b71c633363da29aedb33921bbe": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-096f30b71c633363da29aedb33921bbe"
+    ],
+    "content_summary": "[Document: 2025_06_17_chatgpt 영수증.pdf]\n\n## 문서 개요\n- 문서명: 2025_06_17_chatgpt 영수증.pdf\n- 문서 유형: 영수증\n- 작성 일자: June 17, 2025\n- 핵심 주제: OpenAI, LLC가 plantynet에 발행한 ChatGPT Plus Subscription 서비스에 대한 결제 영수증으로, 2025년 6월 17일에 $22.00가 Visa 카드로 결제되었음을 명시한다.\n\n## 핵심...",
+    "content_length": 2127,
+    "created_at": "2026-03-05T07:41:50.687441+00:00",
+    "updated_at": "2026-03-05T07:45:15.506238+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_074150_678c0ff5",
+    "metadata": {
+      "processing_start_time": 1772696607,
+      "processing_end_time": 1772696715
+    }
+  },
+  "doc-cff03f894aa1895e288bcc0247ed43a3": {
+    "status": "processed",
+    "chunks_count": 3,
+    "chunks_list": [
+      "chunk-651844ca8fc582eb9e5c5ae952cda217",
+      "chunk-f54a987a86574adfb4ad1cb14029944a",
+      "chunk-c4ad6777f6f372ddf6631e7703104954"
+    ],
+    "content_summary": "[Document: 기술연구소_팀별기술스택및레벨별필요기술_20250521_김선준_수정.xlsx]\n\n## 문서 개요\n- 문서명: 기술연구소_팀별기술스택및레벨별필요기술_20250521_김선준_수정.xlsx\n- 문서 유형: 기술문서\n- 작성 일자: 2025-05-21\n- 핵심 주제: 기술연구소 내 개발 분야별(데이터베이스, 차단엔진/오피스가드, 웹, 윈도우, 안드로이드, AI) 기술 스택 및 레벨별 필요 기술을 정의하고, 개인(김선준)의 기술 역량을...",
+    "content_length": 5846,
+    "created_at": "2026-03-05T07:41:50.687468+00:00",
+    "updated_at": "2026-03-05T07:47:02.454944+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_074150_678c0ff5",
+    "metadata": {
+      "processing_start_time": 1772696673,
+      "processing_end_time": 1772696822
+    }
+  },
+  "doc-0ba233fdd570e49e5ca9f9ac3aab2be3": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-0ba233fdd570e49e5ca9f9ac3aab2be3"
+    ],
+    "content_summary": "[Document: 2025_05_17_chatgpt 영수증.pdf]\n\n## 문서 개요\n- 문서명: 2025_05_17_chatgpt 영수증.pdf\n- 문서 유형: 영수증\n- 작성 일자: May 17, 2025\n- 핵심 주제: plantynet이 OpenAI, LLC의 ChatGPT Plus Subscription 서비스를 2025년 5월 17일에 $22.00로 결제한 내역을 담은 영수증이다.\n\n## 핵심 엔티티\n- [OpenAI, LLC] (...",
+    "content_length": 1581,
+    "created_at": "2026-03-05T07:41:50.687417+00:00",
+    "updated_at": "2026-03-05T07:46:10.100291+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_074150_678c0ff5",
+    "metadata": {
+      "processing_start_time": 1772696715,
+      "processing_end_time": 1772696770
+    }
+  },
+  "doc-dc855e54c0d7fd6e6f4fc540815171a6": {
+    "status": "processed",
+    "chunks_count": 2,
+    "chunks_list": [
+      "chunk-9a0547158026e43fb8dcad61fe81ede2",
+      "chunk-d141f18a9aab4498557bd2c9197355e1"
+    ],
+    "content_summary": "[Document: AI_프롬프트 관련 자료_DB_Framework.pptx]\n\n## 문서 개요\n- 문서명: AI_프롬프트 관련 자료_DB_Framework.pptx\n- 문서 유형: 프레젠테이션\n- 작성 일자: (알 수 없음)\n- 핵심 주제: RAG(Retrieval-Augmented Generation) 시스템의 개요, 구축 방법, 구성 요소별 툴 개념 및 테스트/고도화 방안을 설명합니다.\n\n## 핵심 엔티티\n- **RAG (Retrieval...",
+    "content_length": 4369,
+    "created_at": "2026-03-05T07:41:50.687452+00:00",
+    "updated_at": "2026-03-05T07:47:44.231915+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_074150_678c0ff5",
+    "metadata": {
+      "processing_start_time": 1772696770,
+      "processing_end_time": 1772696864
+    }
+  },
+  "doc-ee0fca3ba34d49e751feba796a5051a5": {
+    "status": "processed",
+    "chunks_count": 2,
+    "chunks_list": [
+      "chunk-8c6a355152f3149b1a67320fd1f08a52",
+      "chunk-f37adcf76bfa0b63b612de2654ab7ac6"
+    ],
+    "content_summary": "[Document: 기사 OCR.docx]\n\n## 문서 개요\n- 문서명: 기사 OCR.docx\n- 문서 유형: 기사\n- 작성 일자: (알 수 없음)\n- 핵심 주제: 막스 빌이 디자인한 다기능 스툴인 울름 스툴의 특징, 역사, 그리고 바우하우스 철학과의 연관성을 설명하는 기사.\n\n## 핵심 엔티티\n- **막스 빌 (Max Bill)** (타입: Person): 스위스의 건축가, 예술가, 디자이너. 바우하우스의 이념을 계승하고 울름 스툴을 고안했으...",
+    "content_length": 2455,
+    "created_at": "2026-03-05T07:41:50.687463+00:00",
+    "updated_at": "2026-03-05T07:48:45.059605+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_074150_678c0ff5",
+    "metadata": {
+      "processing_start_time": 1772696822,
+      "processing_end_time": 1772696925
+    }
+  },
+  "doc-faf6973430a5533a3625cb08d1da60fd": {
+    "status": "processed",
+    "chunks_count": 2,
+    "chunks_list": [
+      "chunk-fc975fc447484d2d11d8799d6ecf1373",
+      "chunk-e9322d396cbf361d7f17eda716eeff69"
+    ],
+    "content_summary": "[Document: 카테고리 별 BLEU Score 측정 결과.pptx]\n\n## 문서 개요\n- 문서명: 카테고리 별 BLEU Score 측정 결과.pptx\n- 문서 유형: 프레젠테이션\n- 작성 일자: (알 수 없음)\n- 핵심 주제: 다양한 기계 번역 시스템(Google, Papago, ChatGPT 등)의 한국어-영어 및 영어-한국어 번역에 대한 카테고리별 BLEU 스코어 측정 결과와 현재 테스트의 신뢰도 평가 및 개선 방안을 제시한다.\n\n##...",
+    "content_length": 3586,
+    "created_at": "2026-03-05T07:41:50.687478+00:00",
+    "updated_at": "2026-03-05T07:49:44.202979+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_074150_678c0ff5",
+    "metadata": {
+      "processing_start_time": 1772696864,
+      "processing_end_time": 1772696984
+    }
+  },
+  "doc-737687eee3ea632eeecd35248dbe855a": {
+    "status": "processed",
+    "chunks_count": 3,
+    "chunks_list": [
+      "chunk-bf32d76f6af2b946cb3db4a54c84bdab",
+      "chunk-843163ef4ca10cff5a41be5865ed300f",
+      "chunk-d95555952d1fd191bad09dd2edf939dd"
+    ],
+    "content_summary": "[Document: 2026년_플랜티넷_기술연구소_개발계획_20260128_0853 (2).pdf]\n\n## 문서 개요\n- 문서명: 2026년_플랜티넷_기술연구소_개발계획_20260128_0853 (2).pdf\n- 문서 유형: 개발계획\n- 작성 일자: 2026년 1월 28일\n- 핵심 주제: 플랜티넷 기술연구소의 2026년부터 2028년까지의 기술 개발 계획 및 로드맵을 상세히 설명하며, 사업부 지원 과제와 AI 기반 신규/고도화 기술 개발 내용을...",
+    "content_length": 6843,
+    "created_at": "2026-03-05T07:41:50.687447+00:00",
+    "updated_at": "2026-03-05T07:50:38.247092+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_074150_678c0ff5",
+    "metadata": {
+      "processing_start_time": 1772696925,
+      "processing_end_time": 1772697038
+    }
+  },
+  "doc-a99027685d1b882e7e47e13cc64b5f72": {
+    "status": "processed",
+    "chunks_count": 2,
+    "chunks_list": [
+      "chunk-3586dcab6b282878bcaf595ac6fd2245",
+      "chunk-2db7e0c2a92a184a27e188bc4286ed70"
+    ],
+    "content_summary": "[Document: 기사 OCR.docx]\n\n## 문서 개요\n- 문서명: 기사 OCR.docx\n- 문서 유형: 기사\n- 작성 일자: (알 수 없음)\n- 핵심 주제: 막스 빌이 디자인한 울름 스툴의 특징, 역사, 그리고 바우하우스 철학과의 연관성을 설명하는 기사.\n\n## 핵심 엔티티\n- **막스 빌 (Max Bill)** (타입: Person): 스푼부터 도시 계획까지 다양한 분야의 디자인을 다루며 현대 디자인의 초석을 다진 인물. 화가, 조각가...",
+    "content_length": 2440,
+    "created_at": "2026-03-05T07:43:27.406599+00:00",
+    "updated_at": "2026-03-05T07:51:42.694725+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_074327_6c7fbc0a",
+    "metadata": {
+      "processing_start_time": 1772696984,
+      "processing_end_time": 1772697102
+    }
+  },
+  "doc-189c87d63b8e6e2a4b59cfb0545528f7": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-189c87d63b8e6e2a4b59cfb0545528f7"
+    ],
+    "content_summary": "[Document: 2025_05_17_chatgpt 영수증.pdf]\n\n## 문서 개요\n- 문서명: 2025_05_17_chatgpt 영수증.pdf\n- 문서 유형: 영수증\n- 작성 일자: May 17, 2025\n- 핵심 주제: plantynet이 OpenAI, LLC로부터 ChatGPT Plus Subscription 서비스를 구매하고 결제한 내역을 담은 영수증.\n\n## 핵심 엔티티\n- [OpenAI, LLC] (타입: Organization)...",
+    "content_length": 2519,
+    "created_at": "2026-03-05T07:43:27.406556+00:00",
+    "updated_at": "2026-03-05T07:52:09.174209+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_074327_6c7fbc0a",
+    "metadata": {
+      "processing_start_time": 1772697038,
+      "processing_end_time": 1772697129
+    }
+  },
+  "doc-b9dee433f78a2bbdba3bbf05b1a7d54b": {
+    "status": "processed",
+    "chunks_count": 2,
+    "chunks_list": [
+      "chunk-04d7b67eb1f5269cf901bd85a6fa243d",
+      "chunk-9b3c51912cd727db72eefcfd4ca93f3b"
+    ],
+    "content_summary": "[Document: AI_프롬프트 관련 자료_DB_Framework.pptx]\n\n## 문서 개요\n- 문서명: AI_프롬프트 관련 자료_DB_Framework.pptx\n- 문서 유형: 프레젠테이션\n- 작성 일자: (알 수 없음)\n- 핵심 주제: RAG(Retrieval-Augmented Generation) 시스템의 개요, 필요성, 구성 요소별 툴 개념, 그리고 시스템 구축 및 고도화 방안을 설명한다.\n\n## 핵심 엔티티\n- [RAG (Retri...",
+    "content_length": 3499,
+    "created_at": "2026-03-05T07:43:27.406590+00:00",
+    "updated_at": "2026-03-05T07:54:14.259928+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_074327_6c7fbc0a",
+    "metadata": {
+      "processing_start_time": 1772697102,
+      "processing_end_time": 1772697254
+    }
+  },
+  "doc-08ded054660315853cdaf82eef17a942": {
+    "status": "processed",
+    "chunks_count": 4,
+    "chunks_list": [
+      "chunk-b5c6e8c62a21c8afb975734578cc2331",
+      "chunk-942fb16b5690c9bee8baf317da4683f3",
+      "chunk-415714e969887d85f795c17daca79dd5",
+      "chunk-5ff117209416e691729376fe4458e772"
+    ],
+    "content_summary": "[Document: 2026년_플랜티넷_기술연구소_개발계획_20260128_0853 (2).pdf]\n\n## 문서 개요\n- 문서명: 2026년_플랜티넷_기술연구소_개발계획_20260128_0853 (2).pdf\n- 문서 유형: 개발계획\n- 작성 일자: 2026년 01월 28일\n- 핵심 주제: 플랜티넷 기술연구소의 2026년부터 2028년까지의 기술 개발 계획 및 로드맵을 상세히 설명하며, 사업부 지원 과제와 AI 기반 신규/고도화 기술 개발에 중...",
+    "content_length": 6663,
+    "created_at": "2026-03-05T07:43:27.406585+00:00",
+    "updated_at": "2026-03-05T07:54:32.429980+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_074327_6c7fbc0a",
+    "metadata": {
+      "processing_start_time": 1772697129,
+      "processing_end_time": 1772697272
+    }
+  },
+  "doc-3db4c8e1bc9edbfaf851f5b763bd3f53": {
+    "status": "processed",
+    "chunks_count": 2,
+    "chunks_list": [
+      "chunk-b49052807e826628e673ce95e0a65779",
+      "chunk-013979dddee9fc5949155b21705bc9be"
+    ],
+    "content_summary": "[Document: 카테고리 별 BLEU Score 측정 결과.pptx]\n\n## 문서 개요\n- 문서명: 카테고리 별 BLEU Score 측정 결과.pptx\n- 문서 유형: 프레젠테이션\n- 작성 일자: (알 수 없음)\n- 핵심 주제: 다양한 기계 번역 시스템(Google, Papago, Samsung, ChatGPT, DeepL, Flitto, llsollu)의 한국어-영어 및 영어-한국어 번역에 대한 카테고리별 BLEU 스코어 측정 결과와 해당...",
+    "content_length": 3695,
+    "created_at": "2026-03-05T07:43:27.406622+00:00",
+    "updated_at": "2026-03-05T07:55:56.615446+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_074327_6c7fbc0a",
+    "metadata": {
+      "processing_start_time": 1772697254,
+      "processing_end_time": 1772697356
+    }
+  },
+  "doc-bd5518f677237e7383fa30dabc5ab818": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-bd5518f677237e7383fa30dabc5ab818"
+    ],
+    "content_summary": "[Document: 2025_06_17_chatgpt 영수증.pdf]\n\n## 문서 개요\n- 문서명: 2025_06_17_chatgpt 영수증.pdf\n- 문서 유형: 영수증\n- 작성 일자: June 17, 2025\n- 핵심 주제: OpenAI, LLC가 plantynet에 발행한 ChatGPT Plus Subscription 서비스에 대한 결제 영수증으로, 2025년 6월 17일 $22.00이 Visa 카드로 결제되었음을 명시한다.\n\n## 핵심 ...",
+    "content_length": 2395,
+    "created_at": "2026-03-05T07:43:27.406580+00:00",
+    "updated_at": "2026-03-05T07:55:48.810438+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_074327_6c7fbc0a",
+    "metadata": {
+      "processing_start_time": 1772697272,
+      "processing_end_time": 1772697348
+    }
+  },
+  "doc-a021472a4b1810bb9115f956313f4eb2": {
+    "status": "processed",
+    "chunks_count": 1,
+    "chunks_list": [
+      "chunk-a021472a4b1810bb9115f956313f4eb2"
+    ],
+    "content_summary": "[Document: test_doc.txt]\n\n## 문서 개요\n- 문서명: test_doc.txt\n- 문서 유형: 기술문서\n- 작성 일자: (알 수 없음)\n- 핵심 주제: Agent 시스템의 비밀 패스코드, 설계 조직 및 주요 설계자에 대한 정보.\n\n## 핵심 엔티티\n- [Agent 시스템] (타입: Technology): 비밀 패스코드를 사용하는 시스템.\n- [APPLE_PIE_2026] (타입: Credential): Agent 시스템의 비...",
+    "content_length": 927,
+    "created_at": "2026-03-05T07:43:27.406594+00:00",
+    "updated_at": "2026-03-05T07:57:07.888046+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_074327_6c7fbc0a",
+    "metadata": {
+      "processing_start_time": 1772697349,
+      "processing_end_time": 1772697427
+    }
+  },
+  "doc-c9016118b1f39b2bb154b74d74cfe246": {
+    "status": "processed",
+    "chunks_count": 3,
+    "chunks_list": [
+      "chunk-873a2f7c0b11e6a65564e71b9d136ab9",
+      "chunk-cbf7a61e9910d0b949699c42c00b1607",
+      "chunk-f5e29f86aac7deb2036ce96b4fbd5a21"
+    ],
+    "content_summary": "[Document: 안심플랫폼+AI-기획팀-v0.3(250724).pdf]\n\n## 문서 개요\n- 문서명: 안심플랫폼+AI-기획팀-v0.3(250724).pdf\n- 문서 유형: 개발계획\n- 작성 일자: 2025. 07.\n- 핵심 주제: 안심 플랫폼 앱에 AI 기능을 통합하여 시니어 및 가족 사용자의 편의성과 안전을 고도화하기 위한 확장 및 개발 계획을 제시한다.\n\n## 핵심 엔티티\n- [안심 플랫폼] (Product): 시니어와 가족을 위한 모바...",
+    "content_length": 4905,
+    "created_at": "2026-03-05T07:43:27.406618+00:00",
+    "updated_at": "2026-03-05T07:58:09.515739+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_074327_6c7fbc0a",
+    "metadata": {
+      "processing_start_time": 1772697356,
+      "processing_end_time": 1772697489
+    }
+  },
+  "doc-efa1a611ad0d3b7775fa8366611c2e4e": {
+    "status": "processed",
+    "chunks_count": 2,
+    "chunks_list": [
+      "chunk-95087ad5658addfcfa23bfff3025dddc",
+      "chunk-d6959a8e57f671bac210859bec155307"
+    ],
+    "content_summary": "[Document: 기술연구소_팀별기술스택및레벨별필요기술_20250521_김선준_수정.xlsx]\n\n## 문서 개요\n- 문서명: 기술연구소_팀별기술스택및레벨별필요기술_20250521_김선준_수정.xlsx\n- 문서 유형: 기술문서\n- 작성 일자: 2025년 05월 21일\n- 핵심 주제: 기술연구소의 개발 분야별 기술 스택 및 레벨별 필요 기술을 정의하고, 개인의 기술 역량을 진단하며, 직급별 평가 방법을 제시하는 문서입니다.\n\n## 핵심 엔티티\n-...",
+    "content_length": 3966,
+    "created_at": "2026-03-05T07:43:27.406613+00:00",
+    "updated_at": "2026-03-05T07:59:20.085171+00:00",
+    "file_path": "unknown_source",
+    "track_id": "insert_20260305_074327_6c7fbc0a",
+    "metadata": {
+      "processing_start_time": 1772697428,
+      "processing_end_time": 1772697560
+    }
+  }
+}

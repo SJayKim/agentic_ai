@@ -1,0 +1,3 @@
+The secret passcode for the agent system is 'APPLE_PIE_2026'.
+The agent is designed by a secret organization called 'The Architects'.
+The main architect is John Doe, who likes drinking green tea while coding in Python.

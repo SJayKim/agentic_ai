@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LightRAG AI Agent</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="styles.css?v=20260305b">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-brain"></i>
+                <h2>GraphAgent</h2>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Documents</h3>
+                <div class="doc-actions">
+                    <button id="refresh-docs-btn" class="btn btn-secondary btn-sm"><i class="fa-solid fa-rotate"></i>
+                        Refresh</button>
+                    <button id="upload-btn" class="btn btn-primary btn-sm"
+                        onclick="document.getElementById('file-upload').click()"><i
+                            class="fa-solid fa-cloud-arrow-up"></i> Upload</button>
+                    <input type="file" id="file-upload" class="hidden" accept=".txt,.md,.pdf">
+                </div>
+                <div class="doc-actions">
+                    <button id="ingest-btn" class="btn btn-primary btn-sm" style="width: 100%"><i
+                            class="fa-solid fa-bolt"></i>
+                        Re-Ingest All</button>
+                </div>
+                <ul id="doc-list" class="doc-list">
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Chat Panel -->
+            <div class="chat-panel">
+                <header class="chat-header">
+                    <div class="header-left">
+                        <h1><i class="fa-solid fa-robot"></i> LightRAG Assistant</h1>
+                        <p class="status"><span class="status-dot"></span> Online</p>
+                    </div>
+                    <!-- 향후 그래프 보기 토글 버튼 영역 -->
+                    <div class="header-right">
+                        <button id="graph-toggle-btn" class="btn btn-secondary btn-sm" disabled title="Coming soon">
+                            <i class="fa-solid fa-diagram-project"></i> Graph View
+                        </button>
+                    </div>
+                </header>
+
+                <div id="chat-messages" class="chat-messages">
+                    <div class="message system">
+                        <div class="avatar"><i class="fa-solid fa-robot"></i></div>
+                        <div class="bubble">
+                            <p>안녕하세요! LightRAG 기반 AI 어시스턴트입니다. 문서를 업로드하고 질문하면 지식 그래프를 활용해 답변해 드립니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-input-container">
+                    <form id="chat-form">
+                        <input type="text" id="chat-input" placeholder="질문을 입력하세요..." autocomplete="off">
+                        <button type="submit" id="send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 향후 Graph Visualization Panel (숨김) -->
+            <div id="graph-panel" class="graph-panel hidden">
+                <div class="graph-panel-header">
+                    <h3><i class="fa-solid fa-diagram-project"></i> Knowledge Graph</h3>
+                    <button id="graph-close-btn" class="btn btn-secondary btn-sm"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div id="graph-canvas" class="graph-canvas">
+                    <p class="placeholder-text">그래프 시각화 영역 (Coming Soon)</p>
+                </div>
+                <div id="reference-panel" class="reference-panel">
+                    <h4><i class="fa-solid fa-book-open"></i> 참고 소스</h4>
+                    <div id="reference-list" class="reference-list">
+                        <p class="placeholder-text">쿼리 결과의 참고 소스가 여기에 표시됩니다.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="overlay hidden">
+        <div class="spinner"></div>
+        <p id="loading-text">Ingesting Knowledge Graph...</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="app.js?v=20260305"></script>
+</body>
+
+</html>

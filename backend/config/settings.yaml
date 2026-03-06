@@ -1,0 +1,136 @@
+# Simple Dynamic Planner 설정
+# ============================
+
+# LLM 설정 — 노드별 독립 모델 구성
+# 각 노드는 독립된 LLM 세션을 사용하여 context 오염을 방지합니다.
+llm:
+  # 기본 설정 (개별 노드에서 오버라이드 가능)
+  provider: "google"
+  model_name: "gemini-2.5-flash"
+  temperature: 0.7
+  max_tokens: 65536
+
+  # Router: 의도 분류 (가볍고 빠른 모델)
+  router:
+    provider: "google"
+    model_name: "gemini-2.5-flash"
+    temperature: 0.0  # 분류는 deterministic
+    max_tokens: 256
+
+  # Actor: 추론 및 도구 선택 (고성능 모델)
+  actor:
+    provider: "google"
+    model_name: "gemini-3-flash-preview"
+    temperature: 0.7
+    max_tokens: 65536
+
+  # Evaluator: 실행 결과 평가 (고성능 모델)
+  evaluator:
+    provider: "google"
+    model_name: "gemini-3-flash-preview"
+    temperature: 0.0  # 평가는 deterministic
+    max_tokens: 4096
+
+  # Reflection: 실패 분석 및 교훈 도출 (고성능 모델)
+  reflection:
+    provider: "google"
+    model_name: "gemini-3-flash-preview"
+    temperature: 0.3
+    max_tokens: 4096
+
+  # Direct Answer: 일반 대화 응답
+  direct_answer:
+    provider: "google"
+    model_name: "gemini-2.5-flash"
+    temperature: 0.7
+    max_tokens: 4096
+
+# ReAct Loop 설정 (Legacy)
+react_loop:
+  max_steps: 5  # 최대 실행 단계 수
+  max_consecutive_failures: 3  # 연속 실패 시 Early Stopping
+
+# Agent 설정 (LangGraph)
+agent:
+  max_steps: 5  # 최대 실행 단계 수
+  max_reflection: 3  # 최대 Reflection 횟수 (연속 실패 시)
+  enable_streaming: true  # 스트리밍 출력 활성화
+
+# Context 설정
+context:
+  max_history: 20  # 대화 이력 최대 개수
+  storage_dir: "data/context"  # 세션 저장 경로
+
+# Lessons 설정
+lessons:
+  storage_file: "data/lessons.json"  # 장기 기억 저장 파일
+  max_lessons: 100  # 최대 저장 교훈 수
+
+# 경로 설정
+paths:
+  data_dir: "data"  # 데이터 루트 경로
+  resources_dir: "data/resources"  # 리소스 저장 경로 (Project > Thread > Feed)
+  output_dir: "output_docs"  # 출력 경로
+
+# 리소스 설정 (Project > Thread > Feed)
+resources:
+  # Project 설정
+  project:
+    statuses:
+      - active
+      - archived
+      - completed
+  
+  # Thread 설정
+  thread:
+    priorities:
+      - low
+      - medium
+      - high
+      - critical
+    statuses:
+      - open
+      - in_progress
+      - resolved
+      - closed
+  
+  # Feed 설정
+  feed:
+    types:
+      - message
+      - update
+      - comment
+      - attachment
+      - status_change
+
+# 도구 설정
+tools:
+  search:
+    max_results: 5
+    verify_ssl: false  # DuckDuckGo SSL 설정
+  file:
+    max_read_size: 10000  # 파일 읽기 최대 크기 (bytes)
+
+# 출력 설정
+output:
+  verbose: true  # 상세 로그 출력
+  show_thought: true  # Thought 출력 여부
+  preview_length: 100  # Observation 미리보기 길이
+
+# MCP 서버 설정
+mcp_servers:
+  - name: "atelier_mcp"
+    url: "http://localhost:8003/sse"
+    enabled: false  # Atelier MCP 서버 실행 시 true로 변경
+    headers: {}
+    timeout: 30
+  # - name: "filesystem"
+  #   command: "npx"
+  #   args: ["-y", "@modelcontextprotocol/server-filesystem", "/tmp/mcp_workspace"]
+  #   enabled: false
+  #   timeout: 30
+  # - name: "memory"
+  #   command: "npx"
+  #   args: ["-y", "@modelcontextprotocol/server-memory"]
+  #   enabled: false
+  #   timeout: 30

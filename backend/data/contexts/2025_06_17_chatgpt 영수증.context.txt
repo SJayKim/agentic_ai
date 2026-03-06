@@ -1,0 +1,52 @@
+[Document: 2025_06_17_chatgpt 영수증.pdf]
+[Type: PDF]
+
+--- Page 1 ---
+2835-6052 · $22.00 paid on June 17, 2025
+Page 1 of 1
+Receipt
+Invoice number
+6B742AEF-0010
+Receipt number
+2835-6052
+Date paid
+June 17, 2025
+Payment method Visa - 9518
+OpenAI, LLC
+548 Market Street
+PMB 97273
+San Francisco, California 94104-5401
+United States
+ar@openai.com
+KR BRN 634-80-02934
+Bill to
+plantynet
+경기도 성남시
+대왕판교로 670
+유스페이스 A동 6층, 분당구 삼평동
+13494
+South Korea
+atldev@plantynet.com
+$22.00 paid on June 17, 2025
+Description
+Qty
+Unit price
+Tax
+Amount
+ChatGPT Plus Subscription
+Jun 17 – Jul 17, 2025
+1
+$20.00
+10%
+$20.00
+Subtotal
+$20.00
+Total excluding tax
+$20.00
+VAT - South Korea (10% on $20.00)
+$2.00
+(₩2,724)
+Total
+$22.00
+Amount paid
+$22.00

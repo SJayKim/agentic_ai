@@ -1,0 +1,4 @@
+[Document: test_doc.txt]
+[Type: TEXT]
+
+AgentDemo is a powerful AI system released in 2026. The main developer of this system is the User. It uses LightRAG and LangGraph to provide advanced reasoning.
