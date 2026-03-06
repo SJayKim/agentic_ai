@@ -304,6 +304,211 @@ final_relations = [local[0], global[0], local[1], global[1], ...]
 
 ---
 
+#### 3-2-1단계: 그래프 확산(Expansion) 메커니즘 상세
+
+벡터 검색으로 초기 노드/엣지를 찾은 뒤, **그래프 구조를 따라 1-hop 이웃으로 확산**하는 과정입니다.
+이 확산이 전통적인 벡터 RAG와 Graph RAG의 핵심적인 차이입니다.
+
+##### (A) Local 확산: `_find_most_related_edges_from_entities()`
+
+벡터 검색으로 찾은 **엔티티(노드)에서 출발하여 연결된 관계(엣지)로 확산**합니다.
+
+```
+[벡터 검색 결과 노드들]
+       │
+       ▼
+  ┌─────────────────────────────────────┐
+  │  graph.edges(node_id)               │
+  │  → 해당 노드에 연결된 모든 엣지 조회  │
+  │  (NetworkX 1-hop 탐색)              │
+  └─────────────────────────────────────┘
+       │
+       ▼
+  ┌─────────────────────────────────────┐
+  │  중복 제거 (sorted tuple trick)      │
+  │  → (A→B)와 (B→A)를 동일하게 처리    │
+  └─────────────────────────────────────┘
+       │
+       ▼
+  ┌─────────────────────────────────────┐
+  │  edge_degree + weight 기준 정렬      │
+  │  → 가장 중요한 관계부터 반환         │
+  └─────────────────────────────────────┘
+```
+
+**실제 코드 동작:**
+
+```python
+async def _find_most_related_edges_from_entities(
+    node_datas: list[dict],
+    knowledge_graph_inst: BaseGraphStorage
+):
+    # 1단계: 각 노드에 연결된 모든 엣지 수집
+    all_edges = await knowledge_graph_inst.get_nodes_edges_batch(
+        [dp["entity_name"] for dp in node_datas]
+    )
+
+    # 2단계: 중복 제거 — sorted tuple 기법
+    all_edges_pack = set()
+    for this_edges in all_edges:
+        all_edges_pack.update([tuple(sorted(e)) for e in this_edges])
+    # (A→B)와 (B→A)가 있어도 sorted하면 ("A","B")로 통일됨
+
+    # 3단계: 엣지 상세 정보 + degree 동시 조회
+    all_edges_pack = list(all_edges_pack)
+    all_edge_datas, all_edge_degrees = await asyncio.gather(
+        knowledge_graph_inst.get_edges_batch(all_edges_pack),
+        knowledge_graph_inst.edge_degrees_batch(all_edges_pack),
+    )
+
+    # 4단계: rank(=edge_degree) + weight 기준 내림차순 정렬
+    for i, edge_data in enumerate(all_edge_datas):
+        if edge_data is not None:
+            edge_data["rank"] = all_edge_degrees[i]  # edge_degree 값
+    
+    # rank(높을수록 중요) → weight(높을수록 중요) 순으로 정렬
+    sorted_edges = sorted(
+        [e for e in all_edge_datas if e is not None],
+        key=lambda x: (x.get("rank", 0), x.get("weight", 0)),
+        reverse=True
+    )
+    return sorted_edges
+```
+
+**NetworkX 내부 동작:**
+
+```python
+# get_node_edges — 그래프에서 1-hop 이웃 엣지 조회
+async def get_node_edges(self, source_node_id: str):
+    if self._graph.has_node(source_node_id):
+        return list(self._graph.edges(source_node_id))
+    return []
+# graph.edges("PLANTYNET") → [("PLANTYNET","기술연구소"), ("PLANTYNET","CTO"), ...]
+
+# edge_degree — 엣지의 중요도 계산
+async def edge_degree(self, src_id: str, tgt_id: str) -> int:
+    return self._graph.degree(src_id) + self._graph.degree(tgt_id)
+# degree("PLANTYNET")=15, degree("기술연구소")=8 → edge_degree=23
+# 양쪽 노드의 연결 수 합 = 허브 노드를 지나는 관계일수록 높은 점수
+```
+
+**확산 예시:**
+
+```
+벡터 검색으로 "PLANTYNET" 노드를 찾음 (degree=15)
+    │
+    ├──→ PLANTYNET ─── 소속 ──→ 기술연구소     (edge_degree=23)
+    ├──→ PLANTYNET ─── 대표 ──→ CTO            (edge_degree=20)
+    ├──→ PLANTYNET ─── 개발 ──→ 유해콘텐츠차단  (edge_degree=18)
+    ├──→ PLANTYNET ─── 위치 ──→ 대한민국        (edge_degree=17)
+    ├──→ PLANTYNET ─── 보유 ──→ AI기술          (edge_degree=15)
+    ...
+    └──→ (총 15개 엣지, edge_degree 내림차순 정렬)
+
+→ 단 1번의 벡터 검색으로 "PLANTYNET"만 찾았지만,
+  그래프 확산으로 기술연구소, CTO, 유해콘텐츠차단 등
+  15개 관련 정보를 추가로 획득!
+```
+
+##### (B) Global 확산: `_find_most_related_entities_from_relationships()`
+
+벡터 검색으로 찾은 **관계(엣지)에서 출발하여 연결된 엔티티(노드)로 확산**합니다.
+Local 확산의 역방향입니다.
+
+```
+[벡터 검색 결과 엣지들]
+       │
+       ▼
+  ┌─────────────────────────────────────┐
+  │  각 엣지의 src_id, tgt_id 수집       │
+  │  → 관계의 양쪽 끝 노드를 모두 수집   │
+  └─────────────────────────────────────┘
+       │
+       ▼
+  ┌─────────────────────────────────────┐
+  │  중복 제거 후 batch 조회             │
+  │  → 노드 상세 정보 일괄 로드          │
+  └─────────────────────────────────────┘
+```
+
+**실제 코드 동작:**
+
+```python
+async def _find_most_related_entities_from_relationships(
+    edge_datas: list[dict],
+    knowledge_graph_inst: BaseGraphStorage
+):
+    # 1단계: 모든 엣지에서 양쪽 노드 ID 수집
+    entity_names = set()
+    for edge in edge_datas:
+        if edge is not None:
+            entity_names.add(edge.get("src_id", ""))
+            entity_names.add(edge.get("tgt_id", ""))
+    entity_names.discard("")  # 빈 문자열 제거
+
+    # 2단계: 일괄 조회
+    node_datas = await knowledge_graph_inst.get_nodes_batch(
+        list(entity_names)
+    )
+
+    # 3단계: 유효한 노드만 반환
+    return [n for n in node_datas if n is not None]
+```
+
+**확산 예시:**
+
+```
+벡터 검색으로 "개발 → AI과제: 포함" 관계를 찾음
+    │
+    ├── src_id: "개발계획" → 노드 상세 정보 조회
+    └── tgt_id: "AI과제"   → 노드 상세 정보 조회
+
+→ 관계 1개에서 양쪽 엔티티 2개를 추가로 획득
+→ N개 관계에서 최대 2N개 엔티티를 확보 (중복 제거 후 실제는 더 적음)
+```
+
+##### (C) 확산 요약: Local vs Global
+
+| | Local 확산 | Global 확산 |
+|---|---|---|
+| **출발점** | 노드 (엔티티) | 엣지 (관계) |
+| **확산 방향** | 노드 → 연결된 엣지들 | 엣지 → 양쪽 노드들 |
+| **확산 함수** | `_find_most_related_edges_from_entities()` | `_find_most_related_entities_from_relationships()` |
+| **정렬 기준** | edge_degree + weight 내림차순 | 없음 (batch 조회만) |
+| **1-hop 범위** | `graph.edges(node_id)` | `edge.src_id`, `edge.tgt_id` |
+| **확산 깊이** | **1-hop만** (멀티홉 없음) | **직접 연결만** |
+
+##### (D) edge_degree가 중요한 이유
+
+```
+edge_degree = graph.degree(src_id) + graph.degree(tgt_id)
+```
+
+- `degree` = 해당 노드에 연결된 엣지의 총 수
+- **양쪽 노드가 모두 허브(많은 연결)인 관계**일수록 edge_degree가 높음
+- 높은 edge_degree = **정보가 풍부한 핵심 관계**라는 의미
+
+```
+예: PLANTYNET(degree=15) ── 소속 ── 기술연구소(degree=8)
+    → edge_degree = 15 + 8 = 23 (높음 → 핵심 관계!)
+
+예: 홍길동(degree=2) ── 참석 ── 회의A(degree=1)
+    → edge_degree = 2 + 1 = 3 (낮음 → 덜 중요한 관계)
+```
+
+이 정렬 덕분에 토큰 절단 시 **중요한 관계가 먼저 유지**되고, 주변부 관계가 먼저 제거됩니다.
+
+##### (E) 왜 1-hop만 확산하는가?
+
+LightRAG는 의도적으로 **1-hop 확산만** 수행합니다:
+
+1. **Local + Global 조합으로 충분**: Local이 노드→엣지, Global이 엣지→노드로 확산하므로, 양쪽 결과를 합치면 실질적으로 **2-hop 효과**
+2. **토큰 효율성**: 멀티홉 확산 시 정보량이 기하급수적으로 증가 → LLM 컨텍스트 윈도우 초과 위험
+3. **노이즈 방지**: 홉이 깊어질수록 원래 쿼리와 관련 없는 정보가 섞일 확률 증가
+4. **속도**: 1-hop은 NetworkX `graph.edges()` 한 번이면 완료 → O(degree) 시간복잡도
+
+---
+
 #### 3-3단계: 토큰 절단 + 청크 병합
 
 ##### 토큰 절단: `_apply_token_truncation()`
