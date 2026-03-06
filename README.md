@@ -114,37 +114,21 @@ agentic_ai/
 
 ## 에이전트 처리 흐름
 
-```
-사용자 질문
-     │
-     ▼
-  ┌──────────┐    일반 대화     ┌──────────────┐
-  │  Router   │ ──────────────→ │ Direct Answer │ → 답변
-  └──────────┘                  └──────────────┘
-     │ 도구 사용 질의
-     ▼
-  ┌──────────┐    도구 선택 + 파라미터 결정
-  │  Actor    │ ──────────────→ { tool: "query_knowledge_graph", query: "..." }
-  └──────────┘
-     │
-     ▼
-  ┌────────────────┐    도구 실행 + 결과 수집
-  │ Tool Executor   │ ──→ LightRAG 쿼리 / 웹 검색 / 문서 조회
-  └────────────────┘
-     │
-     ▼
-  ┌──────────┐    기술적 + 논리적 품질 평가
-  │ Evaluator │
-  └──────────┘
-     │
-     ├── PASS → Actor (final_answer 생성) → 답변
-     │
-     └── FAIL → ┌────────────┐ 실패 분석 + 전략 수정
-                │ Reflection  │ → Actor 재시도 (최대 3회)
-                └────────────┘
-                     │
-                     └── 최대 초과 → Exhaustion Answer → 수집 정보 기반 최선 답변
-```
+<p align="center">
+  <img src="images/agent_flowchart.png" alt="Agentic AI System Flowchart" width="600" />
+</p>
+
+### 노드별 LLM 모델 매핑
+
+| 노드 | 모델 | 색상 | 역할 |
+|------|------|------|------|
+| Router | Gemini 2.5 Flash | 🟢 Teal | 의도 분류 (tool_query / general_chat) |
+| Direct Answer | Gemini 2.5 Flash | 🟢 Green | 일반 대화 응답 |
+| Actor | Gemini 3 Flash Preview | 🟠 Orange | 추론 + 도구 선택 |
+| Tool Executor | — (LLM 불필요) | 🟣 Purple | 도구 실행 |
+| Evaluator | Gemini 3 Flash Preview | 🔴 Red | 기술적 + 논리적 품질 평가 |
+| Reflection | Gemini 3 Flash Preview | 🔴 Pink | 실패 분석 + 전략 수정 |
+| Exhaustion Answer | Gemini 2.5 Flash | ⚪ Gray | 부분 결과 기반 최선 답변 |
 
 ---
 
@@ -231,7 +215,38 @@ agent:
 
 ---
 
+## KG 쿼리 파이프라인
+
+<p align="center">
+  <img src="images/kg_query_pipeline.png" alt="Knowledge Graph Query Pipeline" width="600" />
+</p>
+
+---
+
 ## 참고 문서
 
 - [KG 쿼리 메커니즘 상세](documents/knowledge_graph_query_mechanism.md) — 7단계 쿼리 파이프라인, 그래프 확산, 토큰 절단 등 기술 상세
 - [KG 쿼리 메커니즘 쉬운 설명](documents/kg_query_mechanism_explained.md) — 비개발자를 위한 도서관/요리 비유 설명
+
+---
+
+## Figma 디자인 원본
+
+Figma AI로 생성한 다이어그램 원본 `.make` 파일:
+
+| 파일 | 내용 | 이미지 |
+|------|------|--------|
+| `Agentic AI System Flowchart.make` | 에이전트 처리 흐름도 | agent_flowchart.png (2560x2160) |
+| `Knowledge Graph Query Pipeline.make` | KG 쿼리 파이프라인 | kg_query_pipeline.png (2560x2160) |
+
+**디코딩 구조** (`.make` = ZIP archive):
+```
+*.make
+├── canvas.fig          # Figma 캔버스 바이너리
+├── thumbnail.png       # 저해상도 미리보기
+├── meta.json           # 메타데이터 (파일명, 내보내기 시간)
+├── ai_chat.json        # Figma AI 대화 기록 + 생성 코드 (React TSX)
+└── images/             # 고해상도 원본 이미지 (2560x2160)
+```
+
+> `.make` 파일은 ZIP으로 압축 해제 가능합니다: `unzip "파일명.make"`
