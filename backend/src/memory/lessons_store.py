@@ -252,13 +252,13 @@ class LessonsStore(BaseLongTermMemory[Lesson]):
     def save(self) -> None:
         """영구 저장소에 저장"""
         data = [lesson.to_dict() for lesson in self._items]
-        self._storage_file.write_text(json.dumps(data, ensure_ascii=False, indent=2))
+        self._storage_file.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding='utf-8')
     
     def load(self) -> None:
         """영구 저장소에서 로드"""
         if self._storage_file.exists():
             try:
-                data = json.loads(self._storage_file.read_text())
+                data = json.loads(self._storage_file.read_text(encoding='utf-8'))
                 self._items = [Lesson.from_dict(item) for item in data]
             except (json.JSONDecodeError, KeyError):
                 self._items = []

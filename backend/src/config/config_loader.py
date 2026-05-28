@@ -64,10 +64,6 @@ class ConfigLoader:
                 "temperature": 0.7,
                 "max_tokens": 65536,
             },
-            "react_loop": {
-                "max_steps": 5,
-                "max_consecutive_failures": 3,
-            },
             "agent": {
                 "max_steps": 5,
                 "max_reflection": 3,
@@ -83,20 +79,7 @@ class ConfigLoader:
             },
             "paths": {
                 "data_dir": "data",
-                "resources_dir": "data/resources",
                 "output_dir": "output_docs",
-            },
-            "resources": {
-                "project": {
-                    "statuses": ["active", "archived", "completed"],
-                },
-                "thread": {
-                    "priorities": ["low", "medium", "high", "critical"],
-                    "statuses": ["open", "in_progress", "resolved", "closed"],
-                },
-                "feed": {
-                    "types": ["message", "update", "comment", "attachment", "status_change"],
-                },
             },
             "tools": {
                 "search": {
@@ -112,7 +95,6 @@ class ConfigLoader:
                 "show_thought": True,
                 "preview_length": 100,
             },
-            "mcp_servers": [],
         }
     
     def get(self, key: str, default: Any = None) -> Any:
@@ -140,11 +122,6 @@ class ConfigLoader:
     def llm(self) -> Dict[str, Any]:
         """LLM 설정"""
         return self.get_section("llm")
-    
-    @property
-    def react_loop(self) -> Dict[str, Any]:
-        """ReAct Loop 설정"""
-        return self.get_section("react_loop")
     
     @property
     def memory(self) -> Dict[str, Any]:

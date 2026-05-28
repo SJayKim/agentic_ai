@@ -134,6 +134,10 @@ celerybeat.pid
 # SageMath parsed files
 *.sage.py
 
+# Claude Code (local overrides — never committed)
+CLAUDE.local.md
+.claude/settings.local.json
+
 # Environments
 .env
 .envrc

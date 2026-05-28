@@ -16,11 +16,15 @@ import concurrent.futures
 from dataclasses import dataclass
 from typing import Optional
 
-from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import HumanMessage, SystemMessage
 
-# 요약 전용 스레드 풀 (Gemini 동기 호출용)
+from src.llm.provider import get_node_llm
+
+# 요약 전용 스레드 풀 (동기 LLM 호출용)
 _summarizer_executor = concurrent.futures.ThreadPoolExecutor(max_workers=3)
+
+# settings.yaml `llm.summarizer` 기반으로 1회 생성 — 매 호출 인스턴스화 비용 제거.
+_summarizer_llm = get_node_llm("summarizer")
 
 STRUCTURED_SUMMARY_SYSTEM_PROMPT = """\
 당신은 Knowledge Graph 구축을 위한 문서 분석 전문가입니다.
@@ -67,14 +71,13 @@ class StructuredSummary:
     error: Optional[str] = None
 
 
-def _call_gemini_sync(document_text: str) -> str:
-    """Gemini LLM 동기 호출 (스레드 내 실행용)."""
-    llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.1)
+def _call_llm_sync(document_text: str) -> str:
+    """요약용 LLM 동기 호출 (스레드 내 실행용)."""
     messages = [
         SystemMessage(content=STRUCTURED_SUMMARY_SYSTEM_PROMPT),
         HumanMessage(content=f"다음 문서를 분석하여 구조화된 요약을 생성하세요:\n\n{document_text}"),
     ]
-    return llm.invoke(messages).content
+    return _summarizer_llm.invoke(messages).content
 
 
 def summarize_document_sync(filename: str, content: str) -> StructuredSummary:
@@ -99,7 +102,7 @@ def summarize_document_sync(filename: str, content: str) -> StructuredSummary:
 
     try:
         print(f"[SUMMARIZER] 📝 Summarizing {filename} ({len(content):,} chars)...", flush=True)
-        summary = _call_gemini_sync(content)
+        summary = _call_llm_sync(content)
         print(f"[SUMMARIZER] ✅ {filename}: {len(content):,} → {len(summary):,} chars", flush=True)
 
         # 요약 결과에 문서 메타데이터 헤더 추가 (LightRAG가 파일명을 엔티티로 추출할 수 있도록)

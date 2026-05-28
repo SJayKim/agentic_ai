@@ -17,10 +17,10 @@ import numpy as np
 import asyncio
 from lightrag import LightRAG, QueryParam
 from lightrag.utils import EmbeddingFunc
-from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.messages import HumanMessage, SystemMessage
 
+from src.llm.provider import get_node_llm
 from src.rag.document_converter import convert_all_documents, convert_document, SUPPORTED_EXTENSIONS
 from src.rag.document_summarizer import summarize_documents, summarize_document
 from src.rag.summary_store import save_summary, save_summaries_batch
@@ -74,34 +74,36 @@ CUSTOM_ENTITY_TYPES = [
 import concurrent.futures
 _llm_executor = concurrent.futures.ThreadPoolExecutor(max_workers=5)
 
-async def gemini_llm_func(prompt: str, system_prompt: str = None, **kwargs) -> str:
+# settings.yaml `llm.rag` 기반으로 1회 생성 — 매 호출 인스턴스화 비용 제거.
+_rag_llm = get_node_llm("rag")
+
+async def rag_llm_func(prompt: str, system_prompt: str = None, **kwargs) -> str:
     """
-    LightRAG용 Gemini LLM 함수.
-    
-    전용 스레드 풀(_llm_executor)에서 동기 호출하여
-    이벤트 루프 블로킹을 방지.
+    LightRAG용 LLM 함수.
+
+    settings.yaml `llm.rag` 설정에 따라 provider(Google/OpenAI/Anthropic)가 결정된다.
+    전용 스레드 풀(_llm_executor)에서 동기 호출하여 이벤트 루프 블로킹을 방지.
     """
     def _sync_call(p: str, sp: str):
-        llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.1)
         messages = []
         if sp:
             messages.append(SystemMessage(content=sp))
         messages.append(HumanMessage(content=p))
-        print(f"[GEMINI-RAG] Calling Gemini ({len(p)} chars)...")
+        print(f"[RAG-LLM] Calling LLM ({len(p)} chars)...")
         try:
-            res = llm.invoke(messages).content
-            print(f"[GEMINI-RAG] Response received ({len(res)} chars)")
+            res = _rag_llm.invoke(messages).content
+            print(f"[RAG-LLM] Response received ({len(res)} chars)")
             return res
         except Exception as e:
-            print(f"[GEMINI-RAG] LLM invoke failed: {e}")
+            print(f"[RAG-LLM] LLM invoke failed: {e}")
             return f"LLM Error: {str(e)}"
-        
+
     try:
         loop = asyncio.get_running_loop()
         response_content = await loop.run_in_executor(_llm_executor, _sync_call, prompt, system_prompt)
         return response_content
     except Exception as e:
-        print(f"[GEMINI-RAG] Executor error: {e}")
+        print(f"[RAG-LLM] Executor error: {e}")
         return f"LLM Error: {str(e)}"
 
 hf_embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
@@ -116,7 +118,7 @@ async def local_embedding_func(texts: list[str]) -> np.ndarray:
 
 rag = LightRAG(
     working_dir=WORKING_DIR,
-    llm_model_func=gemini_llm_func,
+    llm_model_func=rag_llm_func,
     embedding_func=EmbeddingFunc(
         embedding_dim=384,
         max_token_size=256,

@@ -45,10 +45,19 @@ llm:
     temperature: 0.7
     max_tokens: 4096
 
-# ReAct Loop 설정 (Legacy)
-react_loop:
-  max_steps: 5  # 최대 실행 단계 수
-  max_consecutive_failures: 3  # 연속 실패 시 Early Stopping
+  # RAG: LightRAG 엔진이 KG 구축/쿼리에 사용하는 LLM
+  rag:
+    provider: "google"
+    model_name: "gemini-2.5-flash"
+    temperature: 0.1
+    max_tokens: 8192
+
+  # Summarizer: 문서 구조화 요약기
+  summarizer:
+    provider: "google"
+    model_name: "gemini-2.5-flash"
+    temperature: 0.1
+    max_tokens: 8192
 
 # Agent 설정 (LangGraph)
 agent:
@@ -69,39 +78,7 @@ lessons:
 # 경로 설정
 paths:
   data_dir: "data"  # 데이터 루트 경로
-  resources_dir: "data/resources"  # 리소스 저장 경로 (Project > Thread > Feed)
   output_dir: "output_docs"  # 출력 경로
-
-# 리소스 설정 (Project > Thread > Feed)
-resources:
-  # Project 설정
-  project:
-    statuses:
-      - active
-      - archived
-      - completed
-  
-  # Thread 설정
-  thread:
-    priorities:
-      - low
-      - medium
-      - high
-      - critical
-    statuses:
-      - open
-      - in_progress
-      - resolved
-      - closed
-  
-  # Feed 설정
-  feed:
-    types:
-      - message
-      - update
-      - comment
-      - attachment
-      - status_change
 
 # 도구 설정
 tools:
@@ -117,20 +94,3 @@ output:
   show_thought: true  # Thought 출력 여부
   preview_length: 100  # Observation 미리보기 길이
 
-# MCP 서버 설정
-mcp_servers:
-  - name: "atelier_mcp"
-    url: "http://localhost:8003/sse"
-    enabled: false  # Atelier MCP 서버 실행 시 true로 변경
-    headers: {}
-    timeout: 30
-  # - name: "filesystem"
-  #   command: "npx"
-  #   args: ["-y", "@modelcontextprotocol/server-filesystem", "/tmp/mcp_workspace"]
-  #   enabled: false
-  #   timeout: 30
-  # - name: "memory"
-  #   command: "npx"
-  #   args: ["-y", "@modelcontextprotocol/server-memory"]
-  #   enabled: false
-  #   timeout: 30

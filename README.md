@@ -114,9 +114,42 @@ agentic_ai/
 
 ## 에이전트 처리 흐름
 
-<p align="center">
-  <img src="images/agent_flowchart.png" alt="Agentic AI System Flowchart" width="600" />
-</p>
+```mermaid
+flowchart TD
+    START([User Query]) --> Router{{"Router<br/>(gemini-2.5-flash)<br/>의도 분류"}}
+    Router -->|general_chat| Direct["Direct Answer<br/>(gemini-2.5-flash)"]
+    Router -->|tool_query| Actor["Actor<br/>(gemini-3-flash-preview)<br/>추론 + 도구 선택"]
+
+    Actor -->|action 있음| Tool["Tool Executor<br/>(KG/문서/웹 검색)"]
+    Actor -->|final_answer| END_OK([최종 답변])
+    Actor -->|max_steps 초과| Exhaust["Exhaustion Answer<br/>(부분 결과 기반 최선 답변)"]
+
+    Tool --> Eval{{"Evaluator<br/>(gemini-3-flash-preview)<br/>품질 평가"}}
+    Eval -->|PASS, 다음 스텝| Actor
+    Eval -->|PASS, 종료 조건 충족| END_OK
+    Eval -->|FAIL| Reflect["Reflection<br/>(gemini-3-flash-preview)<br/>실패 분석 + 전략 수정"]
+    Eval -->|FAIL, 한계 초과| Exhaust
+
+    Reflect -->|교훈 저장 to LessonsStore| Actor
+    Direct --> END_OK
+    Exhaust --> END_OK
+
+    classDef router fill:#0fb5a8,stroke:#0a8a80,color:#fff
+    classDef direct fill:#10b981,stroke:#047857,color:#fff
+    classDef actor fill:#f59e0b,stroke:#b45309,color:#fff
+    classDef tool fill:#a855f7,stroke:#6b21a8,color:#fff
+    classDef eval fill:#ef4444,stroke:#991b1b,color:#fff
+    classDef reflect fill:#ec4899,stroke:#9d174d,color:#fff
+    classDef exhaust fill:#9ca3af,stroke:#4b5563,color:#fff
+
+    class Router router
+    class Direct direct
+    class Actor actor
+    class Tool tool
+    class Eval eval
+    class Reflect reflect
+    class Exhaust exhaust
+```
 
 ### 노드별 LLM 모델 매핑
 
@@ -148,11 +181,13 @@ pip install -r requirements.txt
 `backend/` 디렉터리에 `.env` 파일을 생성합니다:
 
 ```bash
-GOOGLE_API_KEY=your_google_api_key
+GOOGLE_API_KEY=your_google_api_key          # Gemini (기본 프로바이더)
+ANTHROPIC_API_KEY=your_anthropic_api_key    # Claude (선택, 노드별 전환 시)
+OPENAI_API_KEY=your_openai_api_key          # GPT (선택, 노드별 전환 시)
 ```
 
-> LightRAG 내부 LLM과 에이전트 노드 모두 Google Gemini를 사용합니다.
-> `settings.yaml`에서 노드별 모델을 개별 설정할 수 있습니다.
+> 기본 구성은 모든 노드가 Google Gemini를 사용합니다. `settings.yaml` 의 노드별 `provider` 만 바꾸면 즉시 Claude/GPT로 전환되며, 사용하지 않는 프로바이더의 키는 생략 가능합니다.
+> `main.py` 가 `backend/.env` 를 우선 로드하고, 없으면 프로젝트 루트의 `.env` 를 fallback으로 읽습니다.
 
 ### 3. 백엔드 서버 실행
 
@@ -189,10 +224,12 @@ python3 serve.py 3000
 ```yaml
 # 노드별 독립 LLM 구성
 llm:
-  router:      { model_name: "gemini-2.5-flash", temperature: 0.0 }
-  actor:       { model_name: "gemini-3-flash-preview", temperature: 0.7 }
-  evaluator:   { model_name: "gemini-3-flash-preview", temperature: 0.0 }
-  reflection:  { model_name: "gemini-3-flash-preview", temperature: 0.3 }
+  router:      { provider: "google", model_name: "gemini-2.5-flash", temperature: 0.0 }
+  actor:       { provider: "google", model_name: "gemini-3-flash-preview", temperature: 0.7 }
+  evaluator:   { provider: "google", model_name: "gemini-3-flash-preview", temperature: 0.0 }
+  reflection:  { provider: "google", model_name: "gemini-3-flash-preview", temperature: 0.3 }
+  rag:         { provider: "google", model_name: "gemini-2.5-flash", temperature: 0.1 }
+  summarizer:  { provider: "google", model_name: "gemini-2.5-flash", temperature: 0.1 }
 
 # 에이전트 동작 제어
 agent:
@@ -200,6 +237,26 @@ agent:
   max_reflection: 3     # Reflexion 최대 횟수
   enable_streaming: true
 ```
+
+### 멀티 프로바이더 (Google / OpenAI / Anthropic) 교체
+
+모든 노드는 `src.llm.provider.get_node_llm()` 으로 LLM 인스턴스를 받습니다.
+노드별로 독립적으로 프로바이더를 바꿀 수 있습니다.
+
+1. `backend/.env` 에 해당 API 키를 추가합니다 (`OPENAI_API_KEY` 또는 `ANTHROPIC_API_KEY`).
+2. `settings.yaml` 의 노드에서 `provider` + `model_name` 만 변경합니다:
+
+   ```yaml
+   actor:
+     provider: "anthropic"
+     model_name: "claude-sonnet-4-5"
+     temperature: 0.7
+     max_tokens: 8192
+   ```
+
+3. `provider.py` 는 lazy import 라 미설치 패키지(`langchain-openai`, `langchain-anthropic`)는
+   해당 프로바이더를 실제 선택할 때만 `ImportError` 를 냅니다 — Gemini 단독 사용 시
+   `requirements.txt` 에서 두 줄을 제거해도 무방합니다.
 
 ---
 
@@ -217,9 +274,33 @@ agent:
 
 ## KG 쿼리 파이프라인
 
-<p align="center">
-  <img src="images/kg_query_pipeline.png" alt="Knowledge Graph Query Pipeline" width="600" />
-</p>
+```mermaid
+flowchart TD
+    Q([사용자 질의]) --> KW["1단계 · 키워드 추출<br/>(LLM 호출 #1)<br/>high-level + low-level 키워드"]
+
+    KW --> Hybrid{{"2단계 · Hybrid KG 검색"}}
+    Hybrid --> Local["Local 검색<br/>엔티티 벡터DB → 노드 매칭"]
+    Hybrid --> Global["Global 검색<br/>관계 벡터DB → 엣지 매칭"]
+
+    Local --> Expand["3단계 · 그래프 확산<br/>1-hop 이웃 엣지 수집<br/>edge_degree + weight 정렬"]
+    Global --> Expand
+    Expand --> Merge["4단계 · 교차 병합<br/>중복 제거 + rank 기반 통합"]
+
+    Merge --> Trunc["5단계 · 토큰 절단 + 청크 병합<br/>모델 컨텍스트 한도 내로 압축"]
+    Trunc --> Ctx["6단계 · 컨텍스트 구성<br/>Knowledge Graph Data<br/>+ Document Chunks"]
+    Ctx --> Gen["7단계 · 답변 생성<br/>(LLM 호출 #2)"]
+    Gen --> A([에이전트 도구 응답])
+
+    classDef step fill:#1e3a8a,stroke:#1e40af,color:#fff
+    classDef branch fill:#0891b2,stroke:#075985,color:#fff
+    classDef merge fill:#7c3aed,stroke:#5b21b6,color:#fff
+    classDef out fill:#059669,stroke:#065f46,color:#fff
+
+    class KW,Trunc,Ctx step
+    class Local,Global,Hybrid branch
+    class Expand,Merge merge
+    class Gen out
+```
 
 ---
 
@@ -227,26 +308,3 @@ agent:
 
 - [KG 쿼리 메커니즘 상세](documents/knowledge_graph_query_mechanism.md) — 7단계 쿼리 파이프라인, 그래프 확산, 토큰 절단 등 기술 상세
 - [KG 쿼리 메커니즘 쉬운 설명](documents/kg_query_mechanism_explained.md) — 비개발자를 위한 도서관/요리 비유 설명
-
----
-
-## Figma 디자인 원본
-
-Figma AI로 생성한 다이어그램 원본 `.make` 파일:
-
-| 파일 | 내용 | 이미지 |
-|------|------|--------|
-| `Agentic AI System Flowchart.make` | 에이전트 처리 흐름도 | agent_flowchart.png (2560x2160) |
-| `Knowledge Graph Query Pipeline.make` | KG 쿼리 파이프라인 | kg_query_pipeline.png (2560x2160) |
-
-**디코딩 구조** (`.make` = ZIP archive):
-```
-*.make
-├── canvas.fig          # Figma 캔버스 바이너리
-├── thumbnail.png       # 저해상도 미리보기
-├── meta.json           # 메타데이터 (파일명, 내보내기 시간)
-├── ai_chat.json        # Figma AI 대화 기록 + 생성 코드 (React TSX)
-└── images/             # 고해상도 원본 이미지 (2560x2160)
-```
-
-> `.make` 파일은 ZIP으로 압축 해제 가능합니다: `unzip "파일명.make"`

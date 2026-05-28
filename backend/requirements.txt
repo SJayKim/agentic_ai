@@ -1,6 +1,8 @@
 langgraph>=0.2.0
 langchain-core>=0.3.0
 langchain-google-genai>=2.0.0
+# 멀티 프로바이더 (Optional) — settings.yaml에서 provider를 "openai"/"anthropic"으로 바꿀 때 필요.
+# Gemini 단독 사용 시에는 아래 두 줄을 제거해도 무방하다 (provider.py가 lazy import + graceful 실패).
 langchain-openai>=0.2.0
 langchain-anthropic>=0.2.0
 python-dotenv
@@ -12,6 +14,7 @@ pydantic>=2.0
 lightrag-hku
 langchain-huggingface
 sentence-transformers
+beautifulsoup4  # web_search HTML 파싱 (utility_tools.py)
 
 # API
 fastapi

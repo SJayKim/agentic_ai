@@ -86,7 +86,7 @@ def get_tools_map() -> Dict[str, Any]:
           메인 루프 (FastAPI)
             └── run_coroutine_threadsafe ──▶ 영구 백그라운드 루프 (rag-event-loop 스레드)
                                                 └── rag.aquery()
-                                                     └── gemini_llm_func (run_in_executor → _llm_executor)
+                                                     └── rag_llm_func (run_in_executor → _llm_executor)
         
         LightRAG 내부 워커가 한 번 초기화되면 같은 루프에서 계속 동작하므로
         'Event loop is closed' 에러가 발생하지 않음.

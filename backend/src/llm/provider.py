@@ -173,38 +173,3 @@ def _create_anthropic_llm(
         max_tokens=max_tokens,
         api_key=api_key,
     )
-
-
-# 편의 함수
-def get_default_llm() -> BaseChatModel:
-    """기본 설정으로 LLM 생성"""
-    return get_llm()
-
-
-def get_llm_from_config(config_key: str = "llm", config_path: Optional[str] = None) -> BaseChatModel:
-    """
-    특정 설정 섹션에서 LLM 생성
-    
-    여러 LLM 설정을 사용할 때 유용.
-    예: llm.actor, llm.evaluator 등
-    
-    Args:
-        config_key: 설정 섹션 키 (예: "llm", "llm.actor")
-        config_path: 설정 파일 경로 (None이면 기본 settings.yaml)
-    
-    Returns:
-        LangChain BaseChatModel 인스턴스
-    """
-    config = ConfigLoader(config_path) if config_path else ConfigLoader()
-    
-    provider = config.get(f"{config_key}.provider", "google")
-    model_name = config.get(f"{config_key}.model_name", "gemini-2.5-flash")
-    temperature = config.get(f"{config_key}.temperature", 0.7)
-    max_tokens = config.get(f"{config_key}.max_tokens", 4096)
-    
-    return get_llm(
-        provider=provider,
-        model_name=model_name,
-        temperature=temperature,
-        max_tokens=max_tokens,
-    )

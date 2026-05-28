@@ -1,10 +1,25 @@
 import os
+import sys
 import uvicorn
 from typing import Dict, Any, List
 from fastapi import FastAPI, Request, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from dotenv import load_dotenv
 import shutil
+
+# Windows 콘솔(cp949)에서 이모지/한자 출력 시 UnicodeEncodeError 발생 방지
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
+# .env 로드 — backend/.env 우선, 없으면 프로젝트 루트의 .env fallback
+_BACKEND_ENV = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
+_ROOT_ENV = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env")
+if os.path.exists(_BACKEND_ENV):
+    load_dotenv(_BACKEND_ENV)
+elif os.path.exists(_ROOT_ENV):
+    load_dotenv(_ROOT_ENV)
 
 from src.agent.graph import create_reflexion_agent
 from src.tools import get_all_tools_descriptions, get_all_tools_map
